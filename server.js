@@ -24,6 +24,7 @@ const xport = require("./careers-export");
 const uploads = require("./careers-uploads");
 const drive = require("./careers-drive");
 const og = require("./og");
+const creatorProgram = require("./creator-program");
 const { PostHog } = require("posthog-node");
 
 const posthog = new PostHog(process.env.POSTHOG_API_KEY, {
@@ -802,6 +803,11 @@ app.get("/r/:code", (req, res) => {
 </body>
 </html>`);
 });
+
+/* ── Creator referral program ─────────────────────────────────────
+   Account, dashboard analytics, and tracked /invite/:code links now
+   live on the main Attira origin instead of a separate application. */
+app.use(creatorProgram.router);
 
 /* ── Static landing site (index.html, legal pages, assets, …) ───── */
 app.use(
